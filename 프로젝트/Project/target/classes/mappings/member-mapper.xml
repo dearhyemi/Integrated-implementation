@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.plus.mapper.MemberMapper">
+
+<!-- colomn part need to modify -->
+<!-- memberJoin.jsp need to be input ${user.porperty} ...-->
+	<resultMap id="memberResult" type="user">
+		<id property="memberNum" column="SEQ"/>
+		<result property="memberPhone" column="TITLE"/>
+		<result property="memberPic" column="WRITER"/>
+		<result property="memberEmail" column="CONTENT"/>
+		<result property="memberPassword" column="REGDATE"/>
+		<result property="memberName" column="CNT"/>
+		<result property="memberNickname" column="CNT"/>
+		<result property="memberPoint" column="CNT"/>
+		<result property="memberJoindate" column="CNT"/>
+		<result property="memberMarketing" column="CNT"/>
+		<result property="memberLatitude" column="CNT"/>
+		<result property="memberLongitude" column="CNT"/>
+				<!-- <result property="uploadfile" column="CNT"/> -->
+	</resultMap>
+
+	<!-- 회원가입 --> 
+	<insert id="joinMember">
+		insert into member(member_phone, member_email, member_password, member_name, member_nickname, member_pic, member_marketing, member_point, member_joindate)
+		values(#{memberPhone}, #{memberEmail}, #{memberPassword}, #{memberName}, #{memberNickname}, #{memberPic}, #{memberMarketing}, 0, sysdate())
+	</insert>
+	
+	<!-- 로그인 --> 
+   <select id="login" resultMap="memberResult">
+        SELECT COUNT(*)
+          FROM USER
+         WHERE ID = #{memberEmail}
+           AND PASSWORD = #{memberPassword}
+    </select>
+	
+</mapper>
